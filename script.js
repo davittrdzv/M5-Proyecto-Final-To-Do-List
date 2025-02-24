@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', async (params) => {
+document.addEventListener('DOMContentLoaded', async () => {
     const addTaskButton = document.getElementById('addTaskButton');
     const newTaskInput = document.getElementById('newTaskInput');
     const taskList = document.getElementById('taskList');
@@ -10,33 +10,48 @@ document.addEventListener('DOMContentLoaded', async (params) => {
     });
 
     // Manejo de Formularios: Evento de formulario único que evita el comportamiento predeterminado.
-    document.querySelector('form').addEventListener('submit', async (event) => {
-        event.preventDefault(); // Evita que el formulario se envíe de manera tradicional y que éste se envíe y se dé tratamiento en el backend.
-        await addTasks();
-        saveTasks();
-    });
+    // document.querySelector('form').addEventListener('submit', async (event) => {
+    //     event.preventDefault(); // Evita que el formulario se envíe de manera tradicional y que éste se envíe y se dé tratamiento en el backend.
+    //     await addTasks();
+    //     saveTasks();
+    // });
 
     async function addTasks() {
         const taskText = newTaskInput.value.trim();
-        const taskElement = document.createElement('div');
-        taskElement.className = 'list-group-item d-flex justify-content-between align-items-center';
-        taskElement.innerHTML = `
-        <span class="task-content">${taskText}</span>
-        <button class="btn btn-danger delete-btn">Eliminar</button>
-        `;
 
-        const deleteButton = taskElement.querySelector('.delete-btn');
-        deleteButton.addEventListener('click', () => {taskElement.remove()});
+        if (!taskText) {
+            alert('Debes añadir una tarea');
+            return;
+        }
 
-        taskElement.addEventListener('click', () => {
-            taskElement.classList.toggle('completed');
-        });
-
-        taskList.appendChild(taskElement);
+        renderTasks(taskText);
 
         newTaskInput.value = '';
 
         return taskText; // Retorna nuestro texto de la tarea para que la usemos en nuestra promesa.
+    };
+
+    function renderTasks(param) {
+        const taskElement = document.createElement('div');
+        taskElement.className = 'list-group-item d-flex justify-content-between align-items-center';
+        taskElement.innerHTML = `
+        <span class="task-content">${param}</span>
+        <button class="btn btn-danger delete-btn">Eliminar</button>
+        `;
+
+        const deleteButton = taskElement.querySelector('.delete-btn');
+        deleteButton.addEventListener('click', () => deleteTasks(taskElement));
+
+        // taskElement.addEventListener('click', () => {
+        //     taskElement.classList.toggle('completed');
+        // });
+
+        taskList.appendChild(taskElement);
+    };
+
+    function deleteTasks(taskElement) {
+        taskElement.remove();
+        saveTasks();
     };
 
     async function saveTasks() {
@@ -49,20 +64,7 @@ document.addEventListener('DOMContentLoaded', async (params) => {
         const tasks = JSON.parse(localStorage.getItem('tasks')); // JSON y manejo de datos locales guardados.
         if (tasks) {
             tasks.forEach(taskText => {
-                const taskElement = document.createElement('div');
-                taskElement.className = 'list-group-item d-flex justify-content-between align-items-center';
-                taskElement.innerHTML = `
-                <span class="task-content">${taskText}</span>
-                <button class="btn btn-danger delete-btn">Eliminar</button>
-                `;
-                const deleteButton = taskElement.querySelector('.delete-btn');
-                deleteButton.addEventListener('click', () => {taskElement.remove()})
-
-                taskElement.addEventListener('click', () => {
-                    taskElement.classList.toggle('completed');
-                });
-
-                taskList.appendChild(taskElement);
+                renderTasks(taskText);
             });
         };
     };
