@@ -1,20 +1,20 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const addTaskButton = document.getElementById('addTaskButton');
+    // const addTaskButton = document.getElementById('addTaskButton');
     const newTaskInput = document.getElementById('newTaskInput');
     const taskList = document.getElementById('taskList');
 
     await loadTasks();
 
-    addTaskButton.addEventListener('click', () => {
-        addTasks().then(saveTasks); // Promesa y async/await
-    });
+    // addTaskButton.addEventListener('click', () => {
+    //     addTasks().then(saveTasks); // Promesa y async/await
+    // });
 
     // Manejo de Formularios: Evento de formulario único que evita el comportamiento predeterminado.
-    // document.querySelector('form').addEventListener('submit', async (event) => {
-    //     event.preventDefault(); // Evita que el formulario se envíe de manera tradicional y que éste se envíe y se dé tratamiento en el backend.
-    //     await addTasks();
-    //     saveTasks();
-    // });
+    document.querySelector('form').addEventListener('submit', async (event) => {
+        event.preventDefault(); // Evita que el formulario se envíe de manera tradicional y que éste se envíe y se dé tratamiento en el backend.
+        await addTasks();
+        saveTasks();
+    });
 
     async function addTasks() {
         const taskText = newTaskInput.value.trim();
