@@ -55,9 +55,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             <td class="task-creationDate">${task.creationDate}</td>
             <td class="task-dueDate">${task.dueDate}</td>
             <td class="task-status">${task.status}</td>
-            <td>
-                <button class="btn btn-success finalize-btn">Finalizar</button>
-                <button class="btn btn-danger delete-btn">Eliminar</button>
+            <td class="third">
+                <button class="btn btn-success finalize-btn"><img src="finalize.svg" alt="Finalizar" title="Finalizar Tarea" width="20"></button>
+                <button class="btn btn-danger delete-btn"><img src="delete.svg" alt="Eliminar" title="Eliminar Tarea" width="20"></button>
             </td>
             `;
         } else {

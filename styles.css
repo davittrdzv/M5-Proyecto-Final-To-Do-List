@@ -1,0 +1,43 @@
+tr, th, td {
+    border: 1.5px solid black;
+}
+
+.primary {
+    width: 40%;
+}
+
+.secondary {
+    width: 15%;
+}
+
+.third {
+    border: 0px;
+    width: 15%;
+    display: flex;
+}
+
+button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button img {
+    width: 20px;
+    height: 20px;
+    transition: filter 0.3s ease-in-out;
+}
+
+.finalize-btn:hover img {
+    filter: brightness(0) saturate(100%) invert(47%) sepia(85%) saturate(438%) hue-rotate(94deg) brightness(90%) contrast(88%);
+}
+
+.delete-btn:hover img {
+    filter: brightness(0) saturate(100%) invert(14%) sepia(85%) saturate(7452%) hue-rotate(356deg) brightness(90%) contrast(95%);
+}
