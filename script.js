@@ -1,13 +1,8 @@
+let tasks = [];
+
 document.addEventListener('DOMContentLoaded', async () => {
-    // const addTaskButton = document.getElementById('addTaskButton');
-    const newTaskInput = document.getElementById('newTaskInput');
-    const taskList = document.getElementById('taskList');
-
+    
     await loadTasks();
-
-    // addTaskButton.addEventListener('click', () => {
-    //     addTasks().then(saveTasks); // Promesa y async/await
-    // });
 
     // Manejo de Formularios: Evento de formulario único que evita el comportamiento predeterminado.
     document.querySelector('form').addEventListener('submit', async (event) => {
@@ -17,55 +12,80 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     async function addTasks() {
-        const taskText = newTaskInput.value.trim();
 
-        if (!taskText) {
-            alert('Debes añadir una tarea');
+        const taskTitle = document.getElementById('taskTitle');
+        const taskDueDate = document.getElementById('taskDueDate');
+
+        if (!taskTitle.value.trim()) {
+            alert('Debes añadir el título de la tarea');
             return;
-        }
+        };
 
-        renderTasks(taskText);
+        if (!taskDueDate.value) {
+            alert('Debes añadir la fecha límite de la tarea');
+            return;
+        };
 
-        newTaskInput.value = '';
+        const newTask = {
+            id: Date.now(),
+            title: taskTitle.value.trim(),
+            creationDate: new Date().toISOString().split('T')[0],
+            dueDate: taskDueDate.value,
+            status: 'En Proceso',
+        };
 
-        return taskText; // Retorna nuestro texto de la tarea para que la usemos en nuestra promesa.
+        tasks.push(newTask);
+
+        renderTasks(newTask);
+
+        taskTitle.value = '';
+        taskDueDate.value = '';
+
+        return newTask; // Retorna nuestro texto de la tarea para que la usemos en nuestra promesa.
     };
-
-    function renderTasks(param) {
-        const taskElement = document.createElement('div');
-        taskElement.className = 'list-group-item d-flex justify-content-between align-items-center';
-        taskElement.innerHTML = `
-        <span class="task-content">${param}</span>
-        <button class="btn btn-danger delete-btn">Eliminar</button>
+    
+    function renderTasks(task) {
+        const taskTableBody = document.getElementById('taskTableBody');
+        const taskRow = document.createElement('tr');
+        taskRow.setAttribute('data-id', task.id);
+        
+        taskRow.innerHTML = `
+        <td class="task-content">${task.title}</td>
+        <td>${task.creationDate}</td>
+        <td>${task.dueDate}</td>
+        <td>${task.status}</td>
+        <td>
+            <button class="btn btn-danger delete-btn">Eliminar</button>
+        </td>
         `;
 
-        const deleteButton = taskElement.querySelector('.delete-btn');
-        deleteButton.addEventListener('click', () => deleteTasks(taskElement));
-
-        // taskElement.addEventListener('click', () => {
-        //     taskElement.classList.toggle('completed');
-        // });
-
-        taskList.appendChild(taskElement);
+        const deleteButton = taskRow.querySelector('.delete-btn');
+        deleteButton.addEventListener('click', (event) => {
+            const taskRow = event.target.closest('tr');
+            const taskId = parseInt(taskRow.getAttribute('data-id'));
+            deleteTasks(taskRow, taskId);
+        });
+        
+        taskTableBody.appendChild(taskRow);
     };
 
-    function deleteTasks(taskElement) {
-        taskElement.remove();
+    function deleteTasks(taskRow, taskId) {
+        tasks = tasks.filter((task) => task.id !== taskId);
+        taskRow.remove();
         saveTasks();
     };
 
     async function saveTasks() {
-        const tasks = [];
-        document.querySelectorAll('.task-content').forEach(task => tasks.push(task.textContent));
         localStorage.setItem('tasks', JSON.stringify(tasks)); // Se guarda en JSON en local.
     };
 
     async function loadTasks() {
-        const tasks = JSON.parse(localStorage.getItem('tasks')); // JSON y manejo de datos locales guardados.
-        if (tasks) {
-            tasks.forEach(taskText => {
-                renderTasks(taskText);
-            });
-        };
+        const savedTasks = JSON.parse(localStorage.getItem('tasks')) || []; // JSON y manejo de datos locales guardados.
+        tasks = savedTasks;
+        savedTasks.forEach(task => renderTasks(task));
     };
+
+    console.log(tasks);
 });
+
+console.log(tasks);

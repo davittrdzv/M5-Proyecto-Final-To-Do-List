@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        table, th, td {
+          border:1px solid black;
+        }
+        </style>
     <script src="script.js" defer></script>
     <title>To Do List</title>
 </head>
@@ -11,11 +16,26 @@
     <div class="container mt-5">
         <h2 class="mb-4">Lista de Tareas</h2>
         <form>
-            <input type="text" name="task" id="newTaskInput" placeholder="Añade tu nueva tarea">
+            <label for="taskTitle">Título</label>
+            <input type="text" name="title" id="taskTitle" placeholder="Añade tu nueva tarea">
+            <label for="taskDueDate">Fecha de Entrega</label>
+            <input type="date" name="dueDate" id="taskDueDate" placeholder="aaaa-mm-dd">
             <input type="submit" id="addTaskButton" class="btn btn-primary my-3" value="Añadir Tarea">
-            <!-- <button id="addTaskButton" class="btn btn-primary my-3">Añadir Tarea</button> -->
         </form>
         <div id="taskList" class="list-group">
+            <table class="table" id="taskTable">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Fecha de Creación</th>
+                        <th>Fecha Límite</th>
+                        <th>Estado</th>
+                        <th>Editar/Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody id="taskTableBody">
+                </tbody>
+            </table>
         </div>
     </div>
 </body>
