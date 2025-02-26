@@ -5,16 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        table, th, td {
-          border:1px solid black;
+        table, tr, th, td {
+          border: 1.5px solid black;
+        }
+        .primary {
+            width: 40%;
+        }
+        .secondary {
+            width: 15%;
         }
         </style>
     <script src="script.js" defer></script>
-    <title>To Do List</title>
+    <title>Lista de Tareas</title>
 </head>
 <body>
     <div class="container mt-5">
-        <h2 class="mb-4">Lista de Tareas</h2>
+        <h2 class="mb-4">LISTA DE TAREAS</h2>
         <form>
             <label for="taskTitle">Título</label>
             <input type="text" name="title" id="taskTitle" placeholder="Añade tu nueva tarea">
@@ -24,17 +30,13 @@
         </form>
         <div id="taskList" class="list-group">
             <table class="table" id="taskTable">
-                <thead>
-                    <tr>
-                        <th>Título</th>
-                        <th>Fecha de Creación</th>
-                        <th>Fecha Límite</th>
-                        <th>Estado</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="taskTableBody">
-                </tbody>
+                <tr>
+                    <th class="primary">TÍTULO</th>
+                    <th class="secondary">FECHA DE CREACIÓN</th>
+                    <th class="secondary">FECHA LÍMITE</th>
+                    <th class="secondary">ESTADO</th>
+                    <th class="secondary"></th>
+                </tr>
             </table>
         </div>
     </div>

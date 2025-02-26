@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
     
     function renderTasks(task) {
-        const taskTableBody = document.getElementById('taskTableBody');
+        const table = document.getElementById('taskTable');
         const taskRow = document.createElement('tr');
         taskRow.setAttribute('data-id', task.id);
         
@@ -96,8 +96,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         };
         
-        
-        taskTableBody.appendChild(taskRow);
+        table.appendChild(taskRow);
     };
 
     function deleteTasks(taskRow, taskId) {
@@ -112,8 +111,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     async function loadTasks() {
         const savedTasks = JSON.parse(localStorage.getItem('tasks')) || []; // JSON y manejo de datos locales guardados.
-        tasks = savedTasks;
-        savedTasks.forEach(task => renderTasks(task));
+        setTimeout(() => {
+            tasks = savedTasks;
+            savedTasks.forEach(task => renderTasks(task));    
+        }, 2000);
+        
     };
 
     // console.log(tasks);
