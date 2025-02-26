@@ -29,8 +29,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         const newTask = {
             id: Date.now(),
             title: taskTitle.value.trim(),
-            creationDate: new Date().toISOString().split('T')[0],
-            dueDate: taskDueDate.value,
+            creationDate: new Date().toLocaleDateString(),
+            dueDate: new Date(taskDueDate.value + "T00:00:00").toLocaleDateString(),
             status: 'En Proceso',
         };
 
