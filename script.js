@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             title: taskTitle.value.trim(),
             creationDate: new Date().toLocaleDateString(),
             dueDate: new Date(taskDueDate.value + "T00:00:00").toLocaleDateString(),
-            status: 'En Proceso',
+            status: 'Pendiente',
         };
 
         tasks.push(newTask);
@@ -49,22 +49,53 @@ document.addEventListener('DOMContentLoaded', async () => {
         const taskRow = document.createElement('tr');
         taskRow.setAttribute('data-id', task.id);
         
-        taskRow.innerHTML = `
-        <td class="task-content">${task.title}</td>
-        <td>${task.creationDate}</td>
-        <td>${task.dueDate}</td>
-        <td>${task.status}</td>
-        <td>
-            <button class="btn btn-danger delete-btn">Eliminar</button>
-        </td>
-        `;
+        if (task.status === 'Pendiente') {
+            taskRow.innerHTML = `
+            <td class="task-title">${task.title}</td>
+            <td class="task-creationDate">${task.creationDate}</td>
+            <td class="task-dueDate">${task.dueDate}</td>
+            <td class="task-status">${task.status}</td>
+            <td>
+                <button class="btn btn-success finalize-btn">Finalizar</button>
+                <button class="btn btn-danger delete-btn">Eliminar</button>
+            </td>
+            `;
+        } else {
+            taskRow.innerHTML = `
+            <td class="task-title">${task.title}</td>
+            <td class="task-creationDate">${task.creationDate}</td>
+            <td class="task-dueDate">${task.dueDate}</td>
+            <td class="task-status">${task.status}</td>
+            `;
+        };
 
         const deleteButton = taskRow.querySelector('.delete-btn');
-        deleteButton.addEventListener('click', (event) => {
-            const taskRow = event.target.closest('tr');
-            const taskId = parseInt(taskRow.getAttribute('data-id'));
-            deleteTasks(taskRow, taskId);
-        });
+        console.log('delete button', deleteButton);
+        if (deleteButton) {
+            deleteButton.addEventListener('click', (event) => {
+                const taskRow = event.target.closest('tr');
+                const taskId = parseInt(taskRow.getAttribute('data-id'));
+                deleteTasks(taskRow, taskId);
+            });
+        };
+
+        const finalizeButton = taskRow.querySelector('.finalize-btn');
+        console.log('finalize button', finalizeButton);
+        if (finalizeButton) {
+            finalizeButton.addEventListener('click', (event) => {
+                const taskRow = event.target.closest('tr');
+                const taskId = parseInt(taskRow.getAttribute('data-id'));
+                const taskToFinalize = tasks.find((task) => task.id === taskId);
+                taskToFinalize.status = 'Finalizada';
+                const trToUpdate = taskRow.querySelector('.task-status');
+                trToUpdate.innerText = 'Finalizada';
+                saveTasks();
+                // console.log(tasks);
+                deleteButton.remove();
+                finalizeButton.remove();
+            });
+        };
+        
         
         taskTableBody.appendChild(taskRow);
     };
@@ -85,7 +116,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         savedTasks.forEach(task => renderTasks(task));
     };
 
-    console.log(tasks);
+    // console.log(tasks);
 });
 
-console.log(tasks);
+// console.log(tasks);
