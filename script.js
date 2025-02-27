@@ -45,61 +45,86 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
     
     function renderTasks(task) {
-        const table = document.getElementById('taskTable');
-        const taskRow = document.createElement('tr');
-        taskRow.setAttribute('data-id', task.id);
+        const taskContainer = document.getElementById('taskContainer');
+        const taskDiv = document.createElement('div');
+        taskDiv.setAttribute('dataId', task.id);
+        taskDiv.classList.add('singleTask');
         
         if (task.status === 'Pendiente') {
-            taskRow.innerHTML = `
-            <td class="task-title">${task.title}</td>
-            <td class="task-creationDate">${task.creationDate}</td>
-            <td class="task-dueDate">${task.dueDate}</td>
-            <td class="task-status">${task.status}</td>
-            <td class="third">
-                <button class="edit-btn"><img src="files/edit.svg" alt="Editar" title="Editar Tarea" width="20"></button>
-                <button class="finalize-btn"><img src="files/finalize.svg" alt="Finalizar" title="Finalizar Tarea" width="20"></button>
-                <button class="delete-btn"><img src="files/delete.svg" alt="Eliminar" title="Eliminar Tarea" width="20"></button>
-            </td>
+            taskDiv.innerHTML = `
+            <div class="divTitle">
+                <span>Tarea:</span>
+                <span>${task.title}</span>
+            </div>
+            <div class="divCreationDate">
+                <span>Fecha de Creación:</span>
+                <span>${task.creationDate}</span>
+            </div>
+            <div class="divDueDate">
+                <span>Fecha Límite</span>
+                <span>${task.dueDate}</span>
+            </div>
+            <div class="divStatus">
+                <span>Estado:</span>
+                <span class="spanStatus">${task.status}</span>
+            </div>
+            <div class="divTaskButtons">
+                <button class="editBtn"><img src="files/edit.svg" alt="Editar" title="Editar Tarea"></button>
+                <button class="finalizeBtn"><img src="files/finalize.svg" alt="Finalizar" title="Finalizar Tarea"></button>
+                <button class="deleteBtn"><img src="files/delete.svg" alt="Eliminar" title="Eliminar Tarea"></button>
+            </div>
             `;
         } else {
-            taskRow.innerHTML = `
-            <td class="task-title">${task.title}</td>
-            <td class="task-creationDate">${task.creationDate}</td>
-            <td class="task-dueDate">${task.dueDate}</td>
-            <td class="task-status">${task.status}</td>
+            taskDiv.innerHTML = `
+            <div class="divTitle">
+                <span>Tarea:</span>
+                <span>${task.title}</span>
+            </div>
+            <div class="divCreationDate">
+                <span>Fecha de Creación:</span>
+                <span>${task.creationDate}</span>
+            </div>
+            <div class="divDueDate">
+                <span>Fecha Límite</span>
+                <span>${task.dueDate}</span>
+            </div>
+            <div class="divStatus">
+                <span>Estado:</span>
+                <span>${task.status}</span>
+            </div>
             `;
         };
 
-        const editButton = taskRow.querySelector('.edit-btn');
+        const editButton = taskDiv.querySelector('.editBtn');
         
         if (editButton) {
             editButton.addEventListener('click', (event) => {
-            const taskRow = event.target.closest('tr');
-            const taskId = parseInt(taskRow.getAttribute('data-id'));
-            editTasks(taskRow, taskId);
+            const taskDiv = event.target.closest('.singleTask');
+            const taskId = parseInt(taskDiv.getAttribute('dataId'));
+            editTasks(taskDiv, taskId);
             });
         };
 
-        const deleteButton = taskRow.querySelector('.delete-btn');
+        const deleteButton = taskDiv.querySelector('.deleteBtn');
         
         if (deleteButton) {
             deleteButton.addEventListener('click', (event) => {
-                const taskRow = event.target.closest('tr');
-                const taskId = parseInt(taskRow.getAttribute('data-id'));
-                deleteTasks(taskRow, taskId);
+                const taskDiv = event.target.closest('.singleTask');
+                const taskId = parseInt(taskDiv.getAttribute('dataId'));
+                deleteTasks(taskDiv, taskId);
             });
         };
 
-        const finalizeButton = taskRow.querySelector('.finalize-btn');
+        const finalizeButton = taskDiv.querySelector('.finalizeBtn');
         
         if (finalizeButton) {
             finalizeButton.addEventListener('click', (event) => {
-                const taskRow = event.target.closest('tr');
-                const taskId = parseInt(taskRow.getAttribute('data-id'));
+                const taskDiv = event.target.closest('.singleTask');
+                const taskId = parseInt(taskDiv.getAttribute('dataId'));
                 const taskToFinalize = tasks.find((task) => task.id === taskId);
                 taskToFinalize.status = 'Finalizada';
-                const trToUpdate = taskRow.querySelector('.task-status');
-                trToUpdate.innerText = 'Finalizada';
+                const spanToUpdate = taskDiv.querySelector('.spanStatus');
+                spanToUpdate.innerText = 'Finalizada';
                 saveTasks();
                 editButton.remove();
                 finalizeButton.remove();
@@ -107,12 +132,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         };
         
-        table.appendChild(taskRow);
+        taskContainer.appendChild(taskDiv);
     };
 
-    function deleteTasks(taskRow, taskId) {
+    function deleteTasks(taskDiv, taskId) {
         tasks = tasks.filter((task) => task.id !== taskId);
-        taskRow.remove();
+        taskDiv.remove();
         saveTasks();
     };
 
@@ -128,44 +153,42 @@ document.addEventListener('DOMContentLoaded', async () => {
         }, 2000);
     };
 
-    function editTasks(taskRow, taskId) {
+    function editTasks(taskDiv, taskId) {
 
-        const editButton = taskRow.querySelector('.edit-btn');
-        const deleteButton = taskRow.querySelector('.delete-btn');
-        const finalizeButton = taskRow.querySelector('.finalize-btn');
+        const editButton = taskDiv.querySelector('.editBtn');
+        const deleteButton = taskDiv.querySelector('.deleteBtn');
+        const finalizeButton = taskDiv.querySelector('.finalizeBtn');
         const saveButton = document.createElement('button');
 
         editButton.style.display = 'none';
         deleteButton.style.display = 'none';
         finalizeButton.style.display = 'none';
-        saveButton.classList = 'save-btn';
+        saveButton.classList = 'saveBtn';
 
         saveButton.innerHTML = `
-        <img src="save.svg" alt="Guardar" title="Guardar Edición" width="20">`;
+        <img src="files/save.svg" alt="Guardar" title="Guardar Edición">`;
 
-        taskRow.querySelector('.third').appendChild(saveButton);
+        taskDiv.querySelector('.divTaskButtons').appendChild(saveButton);
         
         const taskToUpdate = tasks.find((task) => task.id == taskId);
-        const titleCell = taskRow.querySelector('.task-title');
-        const dueDateCell = taskRow.querySelector('.task-dueDate');
+        const divTitle = taskDiv.querySelector('.divTitle');
+        const divDueDate = taskDiv.querySelector('.divDueDate');
 
         const inputTitle = document.createElement('input');
         inputTitle.type = 'text';
         inputTitle.value = taskToUpdate.title;
-        inputTitle.classList.add('edit-title');
         
-        titleCell.innerHTML = '';
-        titleCell.appendChild(inputTitle);
+        divTitle.innerHTML = '<span>Tarea:</span>';
+        divTitle.appendChild(inputTitle);
 
         const [month, day, year] = taskToUpdate.dueDate.split('/');
         const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
         const inputDueDate = document.createElement('input');
         inputDueDate.value = formattedDate;
         inputDueDate.type = 'date';
-        inputDueDate.classList.add('edit-dueDate');
 
-        dueDateCell.innerHTML = '';
-        dueDateCell.appendChild(inputDueDate);
+        divDueDate.innerHTML = '<span>Fecha Límite:</span>';
+        divDueDate.appendChild(inputDueDate);
 
         saveButton.addEventListener('click', () => {
             const newTitle = inputTitle.value.trim();
@@ -183,9 +206,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             taskToUpdate.title = newTitle;
             taskToUpdate.dueDate = new Date(newDueDate + "T00:00:00").toLocaleDateString();
+
+            const newTaskTitle = document.createElement('span');
+            const newTaskDueDate = document.createElement('span');
+
+            divTitle.appendChild(newTaskTitle);
+            divDueDate.appendChild(newTaskDueDate);
             
-            titleCell.innerText = newTitle;
-            dueDateCell.innerText = new Date(newDueDate + "T00:00:00").toLocaleDateString();
+            newTaskTitle.innerText = newTitle;
+            newTaskDueDate.innerText = new Date(newDueDate + "T00:00:00").toLocaleDateString();
+
+            inputTitle.remove();
+            inputDueDate.remove();
 
             saveButton.style.display = 'none';
             editButton.style.display = 'inline-flex';

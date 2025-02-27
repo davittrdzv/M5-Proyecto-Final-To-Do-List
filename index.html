@@ -9,25 +9,20 @@
     <title>Lista de Tareas</title>
 </head>
 <body>
-    <div class="container mt-5">
-        <h2 class="mb-4">LISTA DE TAREAS</h2>
-        <form>
-            <label for="taskTitle">Título</label>
-            <input type="text" name="title" id="taskTitle" placeholder="Añade tu nueva tarea">
-            <label for="taskDueDate">Fecha de Entrega</label>
-            <input type="date" name="dueDate" id="taskDueDate" placeholder="aaaa-mm-dd">
-            <input type="submit" id="addTaskButton" class="btn btn-primary my-3" value="Añadir Tarea">
-        </form>
-        <div id="taskList" class="list-group">
-            <table class="table" id="taskTable">
-                <tr>
-                    <th class="primary">TÍTULO</th>
-                    <th class="secondary">FECHA DE CREACIÓN</th>
-                    <th class="secondary">FECHA LÍMITE</th>
-                    <th class="secondary">ESTADO</th>
-                    <th class="third"></th>
-                </tr>
-            </table>
+    <div class="pageContent">
+        <div class="title">
+            <h1>LISTA DE TAREAS</h1>
+        </div>
+        <div class="formContainer">
+            <form>
+                <label for="taskTitle">Título</label>
+                <input type="text" name="title" id="taskTitle" placeholder="Añade tu nueva tarea">
+                <label for="taskDueDate">Fecha de Entrega</label>
+                <input type="date" name="dueDate" id="taskDueDate" placeholder="aaaa-mm-dd">
+                <input type="submit" id="addTaskButton" class="btn btn-primary my-3" value="Añadir Tarea">
+            </form>
+        </div>
+        <div id="taskContainer">
         </div>
     </div>
 </body>

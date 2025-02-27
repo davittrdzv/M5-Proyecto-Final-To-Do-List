@@ -1,19 +1,44 @@
-tr, th, td {
-    border: 1.5px solid black;
-}
-
-.primary {
-    width: 40%;
-}
-
-.secondary {
-    width: 15%;
-}
-
-.third {
-    border: 0px;
-    width: 15%;
+.pageContent {
     display: flex;
+    flex-direction: column;
+    align-items:center;
+}
+
+#taskContainer {
+    margin-top: 20px;
+    display: flex;
+    align-content: center;
+    width: 100%;
+    max-width:2000px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#taskContainer > div {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0px 5px;
+    border: 4px solid black;
+    padding: 5px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.singleTask > div {
+    margin: 5px;
+}
+
+.divTitle, .divCreationDate, .divDueDate, .divStatus {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.divTaskButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 button {
@@ -34,14 +59,14 @@ button img {
     transition: filter 0.3s ease-in-out;
 }
 
-.edit-btn:hover img {
+.editBtn:hover img {
     filter: brightness(0) saturate(100%) invert(32%) sepia(78%) saturate(1250%) hue-rotate(190deg) brightness(95%) contrast(90%);
 }
 
-.finalize-btn:hover img, .save-btn:hover img {
+.finalizeBtn:hover img, .save-btn:hover img {
     filter: brightness(0) saturate(100%) invert(47%) sepia(85%) saturate(438%) hue-rotate(94deg) brightness(90%) contrast(88%);
 }
 
-.delete-btn:hover img {
+.deleteBtn:hover img {
     filter: brightness(0) saturate(100%) invert(14%) sepia(85%) saturate(7452%) hue-rotate(356deg) brightness(90%) contrast(95%);
 }
