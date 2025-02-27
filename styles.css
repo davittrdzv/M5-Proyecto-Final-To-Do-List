@@ -34,7 +34,11 @@ button img {
     transition: filter 0.3s ease-in-out;
 }
 
-.finalize-btn:hover img {
+.edit-btn:hover img {
+    filter: brightness(0) saturate(100%) invert(32%) sepia(78%) saturate(1250%) hue-rotate(190deg) brightness(95%) contrast(90%);
+}
+
+.finalize-btn:hover img, .save-btn:hover img {
     filter: brightness(0) saturate(100%) invert(47%) sepia(85%) saturate(438%) hue-rotate(94deg) brightness(90%) contrast(88%);
 }
 
