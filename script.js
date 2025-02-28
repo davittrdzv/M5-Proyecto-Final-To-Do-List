@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         taskDiv.classList.add('singleTask');
         
         if (task.status === 'Pendiente') {
+            taskDiv.classList.add('pendingTask');
             taskDiv.innerHTML = `
             <div class="divTitle">
                 <span>Tarea:</span>
@@ -75,6 +76,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             </div>
             `;
         } else {
+            taskDiv.classList.add('finalizedTask');
             taskDiv.innerHTML = `
             <div class="divTitle">
                 <span>Tarea:</span>
@@ -125,6 +127,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 taskToFinalize.status = 'Finalizada';
                 const spanToUpdate = taskDiv.querySelector('.spanStatus');
                 spanToUpdate.innerText = 'Finalizada';
+                taskDiv.classList.remove('pendingTask');
+                taskDiv.classList.add('finalizedTask');
                 saveTasks();
                 editButton.remove();
                 finalizeButton.remove();

@@ -29,6 +29,14 @@
     margin: 5px;
 }
 
+.pendingTask {
+    background-color: orange;
+}
+
+.finalizedTask {
+    background-color: green;
+}
+
 .divTitle, .divCreationDate, .divDueDate, .divStatus {
     display: flex;
     flex-direction: column;
@@ -56,6 +64,17 @@ button {
 button img {
     width: 20px;
     height: 20px;
+    filter: brightness(0) saturate(100%) invert(0%); /* Negro */
+    transition: filter 0.3s ease-in-out;
+}
+
+button:hover img {
+    filter: brightness(0) saturate(100%) invert(100%); /* Blanco */
+}
+
+/*button img {
+    width: 20px;
+    height: 20px;
     transition: filter 0.3s ease-in-out;
 }
 
@@ -69,4 +88,4 @@ button img {
 
 .deleteBtn:hover img {
     filter: brightness(0) saturate(100%) invert(14%) sepia(85%) saturate(7452%) hue-rotate(356deg) brightness(90%) contrast(95%);
-}
+} */
