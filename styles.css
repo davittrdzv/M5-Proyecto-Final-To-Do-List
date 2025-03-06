@@ -4,7 +4,7 @@
     align-items:center;
 }
 
-#taskContainer {
+#pendingTaskContainer, #finalizedTaskContainer {
     margin-top: 20px;
     display: flex;
     align-content: center;
@@ -14,7 +14,7 @@
     justify-content: center;
 }
 
-#taskContainer > div {
+#pendingTaskContainer > div, #finalizedTaskContainer > div {
     text-align: center;
     display: flex;
     flex-direction: column;
