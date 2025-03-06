@@ -45,7 +45,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
     
     function renderTasks(task) {
-        const taskContainer = document.getElementById('taskContainer');
+        const pendingTaskContainer = document.getElementById('pendingTaskContainer');
+        const finalizedTaskContainer = document.getElementById('finalizedTaskContainer');
         const taskDiv = document.createElement('div');
         taskDiv.setAttribute('dataId', task.id);
         taskDiv.classList.add('singleTask');
@@ -75,6 +76,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <button class="deleteBtn"><img src="files/delete.svg" alt="Eliminar" title="Eliminar Tarea"></button>
             </div>
             `;
+            pendingTaskContainer.appendChild(taskDiv);
         } else {
             taskDiv.classList.add('finalizedTask');
             taskDiv.innerHTML = `
@@ -95,6 +97,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <span>${task.status}</span>
             </div>
             `;
+            finalizedTaskContainer.appendChild(taskDiv);
         };
 
         const editButton = taskDiv.querySelector('.editBtn');
@@ -133,10 +136,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 editButton.remove();
                 finalizeButton.remove();
                 deleteButton.remove();
+                taskDiv.remove();
+                finalizedTaskContainer.appendChild(taskDiv);
             });
         };
-        
-        taskContainer.appendChild(taskDiv);
     };
 
     function deleteTasks(taskDiv, taskId) {
@@ -153,7 +156,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         const savedTasks = JSON.parse(localStorage.getItem('tasks')) || []; // JSON y manejo de datos locales guardados.
         setTimeout(() => {
             tasks = savedTasks;
-            savedTasks.forEach(task => renderTasks(task));    
+            savedTasks.forEach(task => renderTasks(task));
+            console.log(tasks); // Este console.log es solo para efectos de testeo y validación backend.
         }, 2000);
     };
 

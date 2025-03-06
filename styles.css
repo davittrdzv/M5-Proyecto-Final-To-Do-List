@@ -4,7 +4,7 @@
     align-items:center;
 }
 
-#taskContainer {
+#pendingTaskContainer, #finalizedTaskContainer {
     margin-top: 20px;
     display: flex;
     align-content: center;
@@ -14,7 +14,7 @@
     justify-content: center;
 }
 
-#taskContainer > div {
+#pendingTaskContainer > div, #finalizedTaskContainer > div {
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -37,7 +37,7 @@
     background-color: green;
 }
 
-.divTitle, .divCreationDate, .divDueDate, .divStatus {
+.divTitle, .divCreationDate, .divDueDate, .divStatus, .divDaysRemaining {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -64,28 +64,10 @@ button {
 button img {
     width: 20px;
     height: 20px;
-    filter: brightness(0) saturate(100%) invert(0%); /* Negro */
+    filter: brightness(0) saturate(100%) invert(0%);
     transition: filter 0.3s ease-in-out;
 }
 
 button:hover img {
-    filter: brightness(0) saturate(100%) invert(100%); /* Blanco */
+    filter: brightness(0) saturate(100%) invert(100%);
 }
-
-/*button img {
-    width: 20px;
-    height: 20px;
-    transition: filter 0.3s ease-in-out;
-}
-
-.editBtn:hover img {
-    filter: brightness(0) saturate(100%) invert(32%) sepia(78%) saturate(1250%) hue-rotate(190deg) brightness(95%) contrast(90%);
-}
-
-.finalizeBtn:hover img, .save-btn:hover img {
-    filter: brightness(0) saturate(100%) invert(47%) sepia(85%) saturate(438%) hue-rotate(94deg) brightness(90%) contrast(88%);
-}
-
-.deleteBtn:hover img {
-    filter: brightness(0) saturate(100%) invert(14%) sepia(85%) saturate(7452%) hue-rotate(356deg) brightness(90%) contrast(95%);
-} */
