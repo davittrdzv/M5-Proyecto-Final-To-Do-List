@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
     <title>Lista de Tareas</title>
@@ -15,11 +14,17 @@
         </div>
         <div class="formContainer">
             <form>
-                <label for="taskTitle">Título</label>
-                <input type="text" name="title" id="taskTitle" placeholder="Añade tu nueva tarea">
-                <label for="taskDueDate">Fecha de Entrega</label>
-                <input type="date" name="dueDate" id="taskDueDate" placeholder="aaaa-mm-dd">
-                <input type="submit" id="addTaskButton" class="btn btn-primary my-3" value="Añadir Tarea">
+                <div id="taskTitleDiv" class="formDiv">
+                    <label for="taskTitle">Título:</label>
+                    <input type="text" name="title" id="taskTitle" placeholder="Añade tu nueva tarea">
+                </div>
+                <div id="taskDueDateDiv" class="formDiv">
+                    <label for="taskDueDate">Fecha de Entrega:</label>
+                    <input type="date" name="dueDate" id="taskDueDate" placeholder="aaaa-mm-dd">    
+                </div>
+                <div id="submitDiv" class="formDiv">
+                    <input type="submit" id="addTaskButton" class="btn btn-primary my-3" value="Añadir Tarea">
+                </div>
             </form>
         </div>
         <div id="taskContainer">
