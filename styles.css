@@ -6,6 +6,11 @@ body {
     padding: 0;
 }
 
+.alert {
+    color: red;
+    font-weight: bold;
+}
+
 .pageContent {
     display: flex;
     flex-direction: column;
@@ -26,12 +31,20 @@ h1, h2 {
 }
 
 .type1 {
+    min-width: fit-content;
+    margin-top: 15px;
+}
+
+.type1, .title {
     background-color: #e7eef5;
     width: 50%;
-    margin-top: 15px;
-    padding: 1px 0px;
+    padding: 10px 10px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    margin: 15px;
 }
 
 #taskTitle {
@@ -78,8 +91,7 @@ h1, h2 {
     transition: transform 0.2s ease-in-out;
 }
 
-#pendingTaskContainer > div:hover, 
-#finalizedTaskContainer > div:hover {
+#pendingTaskContainer > div:hover, #finalizedTaskContainer > div:hover {
     transform: scale(1.05);
 }
 

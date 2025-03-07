@@ -15,14 +15,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const taskTitle = document.getElementById('taskTitle');
         const taskDueDate = document.getElementById('taskDueDate');
+        const alertTitle = document.getElementById('alertTitle');
+        const alertDueDate = document.getElementById('alertDueDate');
 
-        if (!taskTitle.value.trim()) {
-            alert('Debes añadir el título de la tarea');
+        if (!taskTitle.value.trim() && !taskDueDate.value) {
+            alertTitle.textContent = 'Debes añadir el título de la tarea';
+            alertDueDate.textContent = 'Debes añadir la fecha límite de la tarea';
             return;
-        };
-
-        if (!taskDueDate.value) {
-            alert('Debes añadir la fecha límite de la tarea');
+        } else if (!taskTitle.value.trim()) {
+            alertTitle.textContent = 'Debes añadir el título de la tarea';
+            alertDueDate.textContent = '';
+            return;
+        } else if (!taskDueDate.value) {
+            alertTitle.textContent = '';
+            alertDueDate.textContent = 'Debes añadir la fecha límite de la tarea';
             return;
         };
 
@@ -40,6 +46,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         taskTitle.value = '';
         taskDueDate.value = '';
+        alertTitle.textContent = '';
+        alertDueDate.textContent = '';
 
         return newTask; // Retorna nuestro texto de la tarea para que la usemos en nuestra promesa.
     };
