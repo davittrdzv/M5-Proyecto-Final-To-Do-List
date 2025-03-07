@@ -1,11 +1,37 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #dce6f1;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
 .pageContent {
     display: flex;
     flex-direction: column;
     align-items:center;
 }
 
-h2 {
+h1, h2 {
+    font-weight: bold;
     text-align: center;
+    color: #222;
+}
+
+#taskContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.type1 {
+    background-color: #e7eef5;
+    width: 50%;
+    margin-top: 15px;
+    padding: 1px 0px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 #taskTitle {
@@ -14,6 +40,10 @@ h2 {
 
 .formContainer {
     width: 50%;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .formDiv {
@@ -44,6 +74,13 @@ h2 {
     padding: 5px;
     border-radius: 10px;
     margin-bottom: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
+}
+
+#pendingTaskContainer > div:hover, 
+#finalizedTaskContainer > div:hover {
+    transform: scale(1.05);
 }
 
 .singleTask > div {
@@ -51,11 +88,11 @@ h2 {
 }
 
 .pendingTask {
-    background-color: orange;
+    background-color: #ffcc00;
 }
 
 .finalizedTask {
-    background-color: green;
+    background-color: #28a745;;
 }
 
 .divTitle, .divCreationDate, .divDueDate, .divStatus, .divDaysRemaining {
@@ -70,9 +107,28 @@ h2 {
     justify-content: center;
 }
 
-#addTaskButton, #taskDueDate {
+input[type="text"], input[type="date"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#addTaskButton {
     width: fit-content;
-} 
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+#addTaskButton:hover {
+    background-color: #0056b3;
+}
 
 button {
     background: none;
