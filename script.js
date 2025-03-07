@@ -181,8 +181,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         finalizeButton.style.display = 'none';
         saveButton.classList = 'saveBtn';
 
-        saveButton.innerHTML = `
-        <img src="files/save.svg" alt="Guardar" title="Guardar Edición">`;
+        saveButton.innerHTML = `<img src="files/save.svg" alt="Guardar" title="Guardar Edición">`;
 
         taskDiv.querySelector('.divTaskButtons').appendChild(saveButton);
         
@@ -193,30 +192,42 @@ document.addEventListener('DOMContentLoaded', async () => {
         const inputTitle = document.createElement('input');
         inputTitle.type = 'text';
         inputTitle.value = taskToUpdate.title;
+
+        const titleAlert = document.createElement('span');
+        titleAlert.classList.add('alert');
         
         divTitle.innerHTML = '<span>Tarea:</span>';
         divTitle.appendChild(inputTitle);
+        divTitle.appendChild(titleAlert);
 
         const [month, day, year] = taskToUpdate.dueDate.split('/');
         const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
         const inputDueDate = document.createElement('input');
         inputDueDate.value = formattedDate;
         inputDueDate.type = 'date';
+        
+        const dueDateAlert = document.createElement('span');
+        dueDateAlert.classList.add('alert');
 
         divDueDate.innerHTML = '<span>Fecha Límite:</span>';
         divDueDate.appendChild(inputDueDate);
+        divDueDate.appendChild(dueDateAlert);
 
         saveButton.addEventListener('click', () => {
             const newTitle = inputTitle.value.trim();
             const newDueDate = inputDueDate.value;
 
-            if (!newTitle) {
-                alert('Debes añadir el título de la tarea');
+            if (!newTitle && !newDueDate) {
+                titleAlert.textContent = 'Debes añadir el título de la tarea';
+                dueDateAlert.textContent = 'Debes añadir la fecha límite de la tarea';
                 return;
-            };
-
-            if (!newDueDate) {
-                alert('Debes añadir la fecha límite de la tarea');
+            } else if (!newTitle) {
+                titleAlert.textContent = 'Debes añadir el título de la tarea';
+                dueDateAlert.textContent = '';
+                return;
+            } else if (!newDueDate) {
+                titleAlert.textContent = '';
+                dueDateAlert.textContent = 'Debes añadir la fecha límite de la tarea';
                 return;
             };
 
@@ -232,6 +243,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             newTaskTitle.innerText = newTitle;
             newTaskDueDate.innerText = new Date(newDueDate + "T00:00:00").toLocaleDateString();
 
+            titleAlert.remove();
+            dueDateAlert.remove();
             inputTitle.remove();
             inputDueDate.remove();
 
